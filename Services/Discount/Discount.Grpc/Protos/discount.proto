@@ -19,11 +19,11 @@ message CouponModel{
 	int32 amount = 4;
 }
 message CreateDiscountRequest {
-	CouponModel copoun = 1;
+	CouponModel coupon = 1;
 
 }
 message UpdateDiscountRequest {
-	CouponModel copoun = 1;
+	CouponModel coupon = 1;
 
 }
 message DeleteDiscountRequest{
