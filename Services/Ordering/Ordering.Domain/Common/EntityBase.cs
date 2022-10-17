@@ -14,7 +14,7 @@ namespace Ordering.Domain.Common
 
         public DateTime CreatedDate { get; set; }
 
-        public string ModifiedBy { get; set; }
+        public string? ModifiedBy { get; set; }
 
         public DateTime ModifiedDate { get; set; }
     }
