@@ -28,7 +28,7 @@ namespace Ordering.Application.Contracts.Persistance
             List<Expression<Func<T, object>>> includes = null,
             bool disableTracking = true);
 
-        public Task<T> GetByIdAsync(int id);
+        public Task<T> GetByIdAsync(int id );
         #endregion READ
 
         #region UPDATE
