@@ -19,6 +19,9 @@ namespace Catalog.API.Controllers
 
 
 
+
+
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Product>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -29,7 +32,6 @@ namespace Catalog.API.Controllers
         }
 
 
-        // what is difference between these things ?
 
 
 
@@ -49,6 +51,8 @@ namespace Catalog.API.Controllers
         }
 
 
+
+
         [Route("[action]/{category}", Name = "GetProductByCategory")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Product>))]
@@ -64,6 +68,10 @@ namespace Catalog.API.Controllers
             return Ok(product);
         }
 
+
+
+
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
@@ -72,6 +80,9 @@ namespace Catalog.API.Controllers
             return CreatedAtAction(actionName: "GetProduct", new { id = product.Id }, product);
             // it means when we create a new product then we go to get product with that id so we can sure we create it right ?
         }
+
+
+
 
 
         [HttpPut]
@@ -86,6 +97,11 @@ namespace Catalog.API.Controllers
             }
             return BadRequest();
         }
+
+
+
+
+
 
         [HttpDelete("{id:length(24)}", Name = "DeleteProduct")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
