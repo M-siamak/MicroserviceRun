@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Ordering.API.EventBusConsumer;
 using Ordering.Application.Features.Oeders.Commands.CheckoutOrder;
 using Ordering.Application.Features.Oeders.Commands.DeleteOrder;
 using Ordering.Application.Features.Oeders.Commands.UpdateOrder;
@@ -13,25 +14,27 @@ namespace Ordering.API.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public OrderController(IMediator mediator)
+        private readonly ILogger<OrderController> _logger;
+
+        public OrderController(IMediator mediator, ILogger<OrderController> logger)
         {
             _mediator = mediator;
+            _logger = logger;
         }
 
         [HttpGet("{userName}", Name = "GetOrder")]
         [ProducesResponseType(typeof(IEnumerable<OrdersDto>), (int)HttpStatusCode.OK)]
-
         public async Task<ActionResult<IEnumerable<OrdersDto>>> GetOrderByUserName(string userName)
         {
-            var query = new GetOrderListsQuery(userName);
-            var orders = _mediator.Send(query);
+            _logger.LogInformation("Siamak!");
+             var query = new GetOrderListsQuery(userName);
+            var orders = await _mediator.Send(query);
             return Ok(orders);
         }
 
 
         [HttpPost(Name = "CheckoutOrder")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-
         public async Task<ActionResult<int>> CheckoutOrder(CheckoutOrderCommand command)
         {
             var result = _mediator.Send(command);

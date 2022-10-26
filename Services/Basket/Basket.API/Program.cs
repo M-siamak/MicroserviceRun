@@ -21,7 +21,10 @@ builder.Services.AddStackExchangeRedisCache(options =>
 
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
+var version = builder.Configuration.GetValue<string>("GrpcSettings:DiscountUrl");
+
 builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(o => o.Address = new Uri(builder.Configuration.GetValue<string>("GrpcSettings:DiscountUrl")));
+
 builder.Services.AddScoped<DiscountGrpcService>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddMassTransit(config =>

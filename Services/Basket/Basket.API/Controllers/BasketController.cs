@@ -44,7 +44,7 @@ namespace Basket.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart basket)
-        {
+         {
 
 
             foreach (var item in basket.Items)
