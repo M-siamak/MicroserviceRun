@@ -85,6 +85,12 @@ namespace Basket.API.Controllers
             var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
 
             eventMessage.TotalPrice = basket.TotalPrice;
+            foreach(var item in basket.Items)
+            {
+                eventMessage.Products.Add(_mapper.Map<Product>(item));
+            }
+            
+            
             
             await _publishEndpoint.Publish(eventMessage);
 

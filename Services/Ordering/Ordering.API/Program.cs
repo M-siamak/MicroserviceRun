@@ -32,7 +32,7 @@ builder.Services.AddMassTransit(config =>
 
 //builder.Services.AddMassTransitHostedService();
 //we dont need it anymore in V8
-
+builder.Services.AddHttpClient();
 builder.Services.AddScoped<BasketCheckoutConsumer>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

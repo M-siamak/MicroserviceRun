@@ -39,7 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotApiGw", "ApiGateways\OcelotApiGw\OcelotApiGw.csproj", "{9C1D68C2-79C9-484F-8A42-18165215C84E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Aggrigator", "ApiGateways\Shopping.Aggrigator\Shopping.Aggrigator.csproj", "{2A192D8A-D7A2-4222-A21C-7ED2306B0AFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopping.Aggrigator", "ApiGateways\Shopping.Aggrigator\Shopping.Aggrigator.csproj", "{2A192D8A-D7A2-4222-A21C-7ED2306B0AFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

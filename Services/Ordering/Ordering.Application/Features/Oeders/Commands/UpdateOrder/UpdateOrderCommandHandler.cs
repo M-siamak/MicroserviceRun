@@ -36,7 +36,7 @@ namespace Ordering.Application.Features.Oeders.Commands.UpdateOrder
             }
             _mapper.Map(request, orderToUpadate, typeof(UpdateOrderCommand), typeof(Order));
 
-            await _repository.UpdateAsync(orderToUpadate);
+             await _repository.UpdateAsync(orderToUpadate);
 
             _logger.LogInformation($"Order {orderToUpadate.Id} is succesfuly Updated.");
 

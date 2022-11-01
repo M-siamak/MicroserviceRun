@@ -22,5 +22,8 @@
                 return Items.Sum(i => i.Price * i.Quantity);
             }
         }
+
+        
+
     }
 }

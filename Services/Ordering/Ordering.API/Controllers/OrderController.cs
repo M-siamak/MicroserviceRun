@@ -27,7 +27,7 @@ namespace Ordering.API.Controllers
         public async Task<ActionResult<IEnumerable<OrdersDto>>> GetOrderByUserName(string userName)
         {
             _logger.LogInformation("Siamak!");
-             var query = new GetOrderListsQuery(userName);
+            var query = new GetOrderListsQuery(userName);
             var orders = await _mediator.Send(query);
             return Ok(orders);
         }
@@ -35,9 +35,9 @@ namespace Ordering.API.Controllers
 
         [HttpPost(Name = "CheckoutOrder")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<int>> CheckoutOrder(CheckoutOrderCommand command)
+        public async Task<ActionResult<int>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
-            var result = _mediator.Send(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 
@@ -46,9 +46,9 @@ namespace Ordering.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> UpdateOrder(UpdateOrderCommand command)
+        public async Task<ActionResult> UpdateOrder([FromBody] UpdateOrderCommand command)
         {
-            _mediator.Send(command);
+            await _mediator.Send(command);
             return NoContent();
         }
 

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Ordering.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Ordering.Application.Features.Oeders.Commands.CheckoutOrder
     {
         public string UserName { get; set; }
         public decimal TotalPrice { get; set; }
+        public List<Product> Products { get; set; }
 
         // BillingAddress
         public string FirstName { get; set; }

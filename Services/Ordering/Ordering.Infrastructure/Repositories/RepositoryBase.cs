@@ -76,13 +76,19 @@ namespace Ordering.Infrastructure.Repositories
         }
 
         public async Task<T> GetByIdAsync(int id)
-            => await _orderingContext.Set<T>().FindAsync(id);
+        {
+            var record = await _orderingContext.Set<T>().FindAsync(id);
+            return record;
+        }
+             
 
 
         public async Task UpdateAsync(T item)
         {
+
             _orderingContext.Entry(item).State = EntityState.Modified;
             await _orderingContext.SaveChangesAsync();
+
         }
     }
 }
