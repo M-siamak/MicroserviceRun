@@ -87,7 +87,7 @@ namespace Basket.API.Controllers
             eventMessage.TotalPrice = basket.TotalPrice;
             foreach(var item in basket.Items)
             {
-                eventMessage.Products.Add(_mapper.Map<Product>(item));
+                eventMessage.Products.Add(_mapper.Map<ProductItem>(item));
             }
             
             

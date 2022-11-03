@@ -10,7 +10,7 @@ namespace Basket.API.Mapper
         public BasketProfile()
         {
             CreateMap<BasketCheckout, BasketCheckoutEvent>().ReverseMap();
-            CreateMap<ShoppingCartItem, Product > ().ReverseMap();
+            CreateMap<ProductItem, ShoppingCartItem > ().ReverseMap();
         }
     }
 }

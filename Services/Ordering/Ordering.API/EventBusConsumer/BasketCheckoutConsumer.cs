@@ -4,6 +4,7 @@ using EventBus.Messages.Events;
 using MassTransit;
 using Ordering.Application.Features.Oeders.Commands.CheckoutOrder;
 using IMediator = MediatR.IMediator;
+using Ordering.Domain.Entities;
 
 namespace Ordering.API.EventBusConsumer
 {
@@ -11,20 +12,25 @@ namespace Ordering.API.EventBusConsumer
     {
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
+        private readonly ILogger<BasketCheckoutConsumer> _logger;
         
-        public BasketCheckoutConsumer(IMapper mapper, IMediator mediator)
+        public BasketCheckoutConsumer(IMapper mapper, IMediator mediator, ILogger<BasketCheckoutConsumer> logger)
         {
             _mapper = mapper;
             _mediator = mediator;
+            _logger = logger;   
             
         }
 
         public async Task Consume(ConsumeContext<BasketCheckoutEvent> context)
         {
-            var command = _mapper.Map<CheckoutOrderCommand>(context.Message);
-            var result = await _mediator.Send(command);
+             var eventMessage = _mapper.Map<BasketCheckoutEvent>(context.Message);
 
-            //_logger.LogInformation("BasketCheckoutEvent consumed successfully. Created order Id: {0}", result);
+            var command = _mapper.Map<CheckoutOrderCommand>(eventMessage);
+
+            var result = await _mediator.Send(command); 
+
+            _logger.LogInformation("BasketCheckoutEvent consumed successfully. Created order Id: {0}", result);
 
         }
     } 

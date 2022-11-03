@@ -10,7 +10,7 @@ namespace EventBus.Messages.Events
     {
         public string UserName { get; set; }
         public decimal TotalPrice { get; set; }
-        public List<Product> Products { get; set; }
+        public List<ProductItem> Products { get; set; }
 
         // BillingAddress
         public string FirstName { get; set; }

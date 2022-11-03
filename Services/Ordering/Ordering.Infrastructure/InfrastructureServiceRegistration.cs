@@ -24,6 +24,7 @@ namespace Ordering.Infrastructure
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
             services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
+            services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
 
 
             services.Configure<EmailSettings>(c => configuration.GetSection("EmailSettings"));

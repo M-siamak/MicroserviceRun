@@ -12,5 +12,6 @@ namespace EventBus.Messages.Common
         /// name of the queue
         /// </summary>
         public const string BacketCheckoutQueue = "basketcheckout-queue";
+        public const string ProductUpdateQueue = "productupdate-queue";
     }
 }

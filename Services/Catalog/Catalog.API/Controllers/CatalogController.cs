@@ -1,5 +1,7 @@
 ﻿using Catalog.API.Entities;
 using Catalog.API.Repositories;
+using EventBus.Messages.Events;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -11,10 +13,12 @@ namespace Catalog.API.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly ILogger<CatalogController> _logger;
-        public CatalogController(IProductRepository productRepository, ILogger<CatalogController> logger)
+        private readonly IPublishEndpoint _publishEndpoint;
+        public CatalogController(IProductRepository productRepository, ILogger<CatalogController> logger, IPublishEndpoint publishEndpoint)
         {
             _productRepository = productRepository;
             _logger = logger;
+            _publishEndpoint = publishEndpoint;
         }
 
 
@@ -90,12 +94,24 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Product>> UpdateProduct([FromBody] Product product)
         {
-            var ret = await _productRepository.UpdateProduct(product);
-            if (ret == true)
+            var oldproduct = await _productRepository.GetProduct(product.Id);
+
+            if (product.Name != oldproduct.Name)
             {
-                return CreatedAtAction(actionName: "GetProduct", new { id = product.Id });
+                ProductUpdateEvent eventMessage = new ProductUpdateEvent()
+                {
+                    ProductName = oldproduct.Name,
+                    NewProductName = product.Name
+                };
+
+                await _publishEndpoint.Publish(eventMessage);
             }
-            return BadRequest();
+
+            var ret = await _productRepository.UpdateProduct(product);
+
+            return Ok(ret);
+            
+            
         }
 
 

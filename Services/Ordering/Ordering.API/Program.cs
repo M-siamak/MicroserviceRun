@@ -16,9 +16,15 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddControllers();
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 builder.Services.AddMassTransit(config =>
 {
+    
     config.AddConsumer<BasketCheckoutConsumer>();
+    config.AddConsumer<ProductUpdateConsumer>();
     config.UsingRabbitMq((ctx, cfg) =>
     {
         cfg.Host(builder.Configuration.GetValue<string>("EventBusSettings:HostAddress"));
@@ -27,13 +33,22 @@ builder.Services.AddMassTransit(config =>
         {
             c.ConfigureConsumer<BasketCheckoutConsumer>(ctx);
         });
+
+        cfg.ReceiveEndpoint(EventBusConstants.ProductUpdateQueue, d =>
+        {
+            d.ConfigureConsumer<ProductUpdateConsumer>(ctx);
+        });
     });
 });
+
+
+
 
 //builder.Services.AddMassTransitHostedService();
 //we dont need it anymore in V8
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<BasketCheckoutConsumer>();
+builder.Services.AddScoped<ProductUpdateConsumer>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
