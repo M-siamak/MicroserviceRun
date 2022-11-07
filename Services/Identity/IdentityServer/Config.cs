@@ -11,22 +11,21 @@ namespace IdentityServer
         public static IEnumerable<Client> Clients =>
             new Client[]
             {
-                   new Client
-                   {
-                        ClientId = "movieClient",
+                  new Client
+                  {
+                        ClientId = "catalogClient",
                         AllowedGrantTypes = GrantTypes.ClientCredentials,
                         ClientSecrets =
                         {
                             new Secret("secret".Sha256())
                         },
-                        AllowedScopes = { "movieAPI" }
-                   },
-                   new Client
-                   {
-                       ClientId = "movies_mvc_client",
-                       ClientName = "Movies MVC Web App",
-                       AllowedGrantTypes = GrantTypes.Hybrid,
-                       RequirePkce = false,
+                        AllowedScopes = { "catalogAPI" }
+                  },
+                  new Client
+                  {
+                       ClientId = "basketClient",
+                       ClientName = "Basket Api",
+                       AllowedGrantTypes = GrantTypes.Code, 
                        AllowRememberConsent = false,
                        RedirectUris = new List<string>()
                        {
@@ -43,38 +42,30 @@ namespace IdentityServer
                        AllowedScopes = new List<string>
                        {
                            IdentityServerConstants.StandardScopes.OpenId,
-                           IdentityServerConstants.StandardScopes.Profile,
-                           IdentityServerConstants.StandardScopes.Address,
-                           IdentityServerConstants.StandardScopes.Email,
-                           "movieAPI",
-                           "roles"
+                           IdentityServerConstants.StandardScopes.Profile
                        }
-                   }
+                  }
+
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
            new ApiScope[]
            {
-               new ApiScope("movieAPI", "Movie API")
+               new ApiScope("catalogAPI", "Catalog API"),
+               new ApiScope("basketAPI", "Basket API")
            };
 
         public static IEnumerable<ApiResource> ApiResources =>
           new ApiResource[]
           {
-               //new ApiResource("movieAPI", "Movie API")
+
           };
 
         public static IEnumerable<IdentityResource> IdentityResources =>
           new IdentityResource[]
           {
               new IdentityResources.OpenId(),
-              new IdentityResources.Profile(),
-              new IdentityResources.Address(),
-              new IdentityResources.Email(),
-              new IdentityResource(
-                    "roles",
-                    "Your role(s)",
-                    new List<string>() { "role" })
+              new IdentityResources.Profile()
           };
 
         public static List<TestUser> TestUsers =>
@@ -83,12 +74,12 @@ namespace IdentityServer
                 new TestUser
                 {
                     SubjectId = "5BE86359-073C-434B-AD2D-A3932222DABE",
-                    Username = "mehmet",
+                    Username = "siamak",
                     Password = "swn",
                     Claims = new List<Claim>
                     {
-                        new Claim(JwtClaimTypes.GivenName, "mehmet"),
-                        new Claim(JwtClaimTypes.FamilyName, "ozkaya")
+                        new Claim(JwtClaimTypes.GivenName, "siamak"),
+                        new Claim(JwtClaimTypes.FamilyName, "anzabi")
                     }
                 }
             };

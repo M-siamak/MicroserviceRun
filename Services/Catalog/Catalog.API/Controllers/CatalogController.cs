@@ -2,6 +2,7 @@
 using Catalog.API.Repositories;
 using EventBus.Messages.Events;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -9,6 +10,7 @@ namespace Catalog.API.Controllers
 {
     [ApiController]
     [Route("api/v1/[Controller]")]
+    [Authorize ("ClientIdPolicy")]
     public class CatalogController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
