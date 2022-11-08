@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 	<PackageReference Include="MassTransit" Version="8.0.8-develop.614" />
     <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.8-develop.614" />

@@ -13,13 +13,32 @@ namespace IdentityServer
             {
                   new Client
                   {
-                        ClientId = "catalogClient",
-                        AllowedGrantTypes = GrantTypes.ClientCredentials,
-                        ClientSecrets =
-                        {
-                            new Secret("secret".Sha256())
-                        },
-                        AllowedScopes = { "catalogAPI" }
+                       ClientId = "catalogClient",
+                       ClientName = "Catalog Api",
+                       AllowedGrantTypes = GrantTypes.Hybrid,
+                       RequirePkce = false,
+                       AllowRememberConsent = false,
+                       RedirectUris = new List<string>()
+                       {
+                           "https://localhost:5002/signin-oidc"
+                       },
+                       PostLogoutRedirectUris = new List<string>()
+                       {
+                           "https://localhost:5002/signout-callback-oidc"
+                       },
+                       ClientSecrets = new List<Secret>
+                       {
+                           new Secret("secret".Sha256())
+                       },
+                       AllowedScopes = new List<string>
+                       {
+                           IdentityServerConstants.StandardScopes.OpenId,
+                           IdentityServerConstants.StandardScopes.Profile,
+                           IdentityServerConstants.StandardScopes.Address,
+                           IdentityServerConstants.StandardScopes.Email,
+                           "basketAPI",
+                           "roles"
+                       }
                   },
                   new Client
                   {
@@ -69,10 +88,11 @@ namespace IdentityServer
         public static IEnumerable<IdentityResource> IdentityResources =>
           new IdentityResource[]
           {
-               new IdentityResources.OpenId(),
+              new IdentityResources.OpenId(),
               new IdentityResources.Profile(),
               new IdentityResources.Address(),
               new IdentityResources.Email(),
+              
               new IdentityResource(
                     "roles",
                     "Your role(s)",

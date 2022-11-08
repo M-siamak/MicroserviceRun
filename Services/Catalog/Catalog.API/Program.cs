@@ -1,5 +1,6 @@
 using Catalog.API.Data;
 using Catalog.API.Repositories;
+using IdentityServer4.AccessTokenValidation;
 using MassTransit;
 using Microsoft.IdentityModel.Tokens;
 
@@ -40,6 +41,12 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "catalogClient"));
 });
+//builder.Services.AddAuthentication(defaultScheme: IdentityServerAuthenticationDefaults.AuthenticationScheme)
+//              .AddIdentityServerAuthentication(options =>
+//              {
+//                  options.Authority = builder.Configuration["IDPBaseAddress"];
+//                  options.ApiName = "imagegalleryapi";
+//              });
 
 
 
