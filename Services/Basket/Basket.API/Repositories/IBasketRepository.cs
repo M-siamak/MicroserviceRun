@@ -9,5 +9,7 @@ namespace Basket.API.Repositories
         Task<ShoppingCart> UpdateBasket(ShoppingCart basket);
 
         Task DeleteBasket(string userName);
+
+        //Task<bool> IsbasketOwner(string ownerBasket);
     }
 }

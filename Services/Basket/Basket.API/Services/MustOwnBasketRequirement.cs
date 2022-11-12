@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace Basket.API.Entities
+namespace Basket.API.Services
 {
     public class MustOwnBasketRequirement : IAuthorizationRequirement
     {

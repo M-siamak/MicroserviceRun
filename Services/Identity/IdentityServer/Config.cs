@@ -20,11 +20,11 @@ namespace IdentityServer
                        AllowRememberConsent = false,
                        RedirectUris = new List<string>()
                        {
-                           "https://localhost:5002/signin-oidc"
+                           "https://localhost:5001/signin-oidc"
                        },
                        PostLogoutRedirectUris = new List<string>()
                        {
-                           "https://localhost:5002/signout-callback-oidc"
+                           "https://localhost:5001/signout-callback-oidc"
                        },
                        ClientSecrets = new List<Secret>
                        {
@@ -34,40 +34,25 @@ namespace IdentityServer
                        {
                            IdentityServerConstants.StandardScopes.OpenId,
                            IdentityServerConstants.StandardScopes.Profile,
-                           IdentityServerConstants.StandardScopes.Address,
-                           IdentityServerConstants.StandardScopes.Email,
-                           "basketAPI",
+                           "catalogAPI",
                            "roles"
                        }
                   },
                   new Client
                   {
-                       ClientId = "basketClient",
-                       ClientName = "Basket Api",
-                       AllowedGrantTypes = GrantTypes.Hybrid,
-                       RequirePkce = false,
-                       AllowRememberConsent = false,
-                       RedirectUris = new List<string>()
-                       {
-                           "https://localhost:5002/signin-oidc"
-                       },
-                       PostLogoutRedirectUris = new List<string>()
-                       {
-                           "https://localhost:5002/signout-callback-oidc"
-                       },
-                       ClientSecrets = new List<Secret>
-                       {
-                           new Secret("secret".Sha256())
-                       },
-                       AllowedScopes = new List<string>
-                       {
+                        ClientId = "basketClient",
+                        AllowedGrantTypes = GrantTypes.ClientCredentials,
+                        ClientSecrets =
+                        {
+                            new Secret("secret".Sha256())
+                        },
+                        AllowedScopes = new List<string>
+                        {
                            IdentityServerConstants.StandardScopes.OpenId,
                            IdentityServerConstants.StandardScopes.Profile,
-                           IdentityServerConstants.StandardScopes.Address,
-                           IdentityServerConstants.StandardScopes.Email,
                            "basketAPI",
                            "roles"
-                       }
+                        }
                   }
 
             };
@@ -90,9 +75,6 @@ namespace IdentityServer
           {
               new IdentityResources.OpenId(),
               new IdentityResources.Profile(),
-              new IdentityResources.Address(),
-              new IdentityResources.Email(),
-              
               new IdentityResource(
                     "roles",
                     "Your role(s)",

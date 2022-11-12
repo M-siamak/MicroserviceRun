@@ -1,9 +1,12 @@
 using Basket.API.GrpcServices;
 using Basket.API.Repositories;
+using Basket.API.Services;
 using Discount.Grpc.Protos;
 using EventBus.Messages.Common;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +14,29 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.Authority = "https://localhost:5005";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false
+        };
+    });
 
+
+builder.Services.AddAuthorization(authorizationOptions =>
+{
+    authorizationOptions.AddPolicy(
+    name: "MustOwnBasket",
+     configurePolicy: policyBuilder =>
+     {
+         policyBuilder.RequireAuthenticatedUser();
+         policyBuilder.AddRequirements(new MustOwnBasketRequirement());
+     });
+});
+
+builder.Services.AddScoped<IAuthorizationHandler, MustOwnBasketHandler>();
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {

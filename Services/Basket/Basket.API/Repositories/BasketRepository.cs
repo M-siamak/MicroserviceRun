@@ -34,6 +34,11 @@ namespace Basket.API.Repositories
             
         }
 
+        //public async Task<bool> IsbasketOwner(string ownerBasket)
+        //{
+        //    await _redisCache.
+        //}
+
         public async Task<ShoppingCart> UpdateBasket(ShoppingCart basket)
         {
             await _redisCache.SetStringAsync(basket.UserName, JsonConvert.SerializeObject(basket));

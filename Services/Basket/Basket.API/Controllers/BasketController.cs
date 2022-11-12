@@ -4,6 +4,7 @@ using Basket.API.GrpcServices;
 using Basket.API.Repositories;
 using EventBus.Messages.Events;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -12,6 +13,7 @@ namespace Basket.API.Controllers
     
     [ApiController]
     [Route("api/v1/[Controller]")]
+    [Authorize]
     public class BasketController : ControllerBase
     {
         private readonly IBasketRepository _repository;
@@ -30,6 +32,7 @@ namespace Basket.API.Controllers
 
         [HttpGet("{userName}" , Name = "GetBasket")]
         [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
+        [Authorize("MustOwnBasket")]
         public async Task<ActionResult<ShoppingCart>> GetBasket(string userName)
         {
             var basket = await _repository.GetBasket(userName);
