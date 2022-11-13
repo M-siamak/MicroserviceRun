@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ordering.API.EventBusConsumer;
 using Ordering.Application.Features.Oeders.Commands.CheckoutOrder;
@@ -16,6 +17,7 @@ namespace Ordering.API.Controllers
         private readonly IMediator _mediator;
         private readonly ILogger<OrderController> _logger;
 
+        
         public OrderController(IMediator mediator, ILogger<OrderController> logger)
         {
             _mediator = mediator;

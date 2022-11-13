@@ -15,7 +15,7 @@ namespace IdentityServer
                   {
                        ClientId = "catalogClient",
                        ClientName = "Catalog Api",
-                       AllowedGrantTypes = GrantTypes.Hybrid,
+                       AllowedGrantTypes = GrantTypes.Code,
                        RequirePkce = false,
                        AllowRememberConsent = false,
                        RedirectUris = new List<string>()

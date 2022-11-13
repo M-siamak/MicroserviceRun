@@ -6,15 +6,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using IdentityServer4;
+using Microsoft.EntityFrameworkCore.Migrations.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("Defualtconnection")));
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().
     AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-var builter = builder.Services.AddIdentityServer(options =>
+builder.Services.AddIdentityServer(options =>
 {
     options.Events.RaiseErrorEvents = true;
     options.Events.RaiseInformationEvents = true;
@@ -25,16 +27,17 @@ var builter = builder.Services.AddIdentityServer(options =>
 }).AddInMemoryApiScopes(SD.ApiScopes)
   .AddInMemoryIdentityResources(SD.IdentityResources)
   .AddInMemoryClients(SD.Clients)
-  .AddAspNetIdentity<ApplicationUser>();
+  .AddAspNetIdentity<ApplicationUser>()
+  .AddDeveloperSigningCredential();
 
-builter.AddDeveloperSigningCredential();
 
 builder.Services.AddControllersWithViews();
+
 //builder.Services.AddIdentityServer()
 //                .AddInMemoryClients(Config.Clients)
 //                .AddInMemoryApiScopes(Config.ApiScopes)
 //                .AddInMemoryIdentityResources(Config.IdentityResources)
-//                .AddTestUsers(TestUsers.Users)   
+//                .AddTestUsers(TestUsers.Users)
 //                .AddDeveloperSigningCredential();
 
 var app = builder.Build();

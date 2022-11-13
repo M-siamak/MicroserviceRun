@@ -12,11 +12,8 @@ namespace IdentityServer
          new IdentityResource[]
          {
               new IdentityResources.OpenId(),
-              new IdentityResources.Profile(),
-              new IdentityResource(
-                    "roles",
-                    "Your role(s)",
-                    new List<string>() { "role" })
+              new IdentityResources.Profile()
+              
          };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -33,7 +30,7 @@ namespace IdentityServer
                   {
                        ClientId = "catalogClient",
                        ClientName = "Catalog Api",
-                       AllowedGrantTypes = GrantTypes.Hybrid,
+                       AllowedGrantTypes = GrantTypes.Code,
                        RequirePkce = false,
                        AllowRememberConsent = false,
                        RedirectUris = new List<string>()
@@ -52,8 +49,8 @@ namespace IdentityServer
                        {
                            IdentityServerConstants.StandardScopes.OpenId,
                            IdentityServerConstants.StandardScopes.Profile,
-                           "catalogAPI",
-                           "roles"
+                           "catalogAPI"
+                           
                        }
                   }
 

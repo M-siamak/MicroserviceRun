@@ -10,7 +10,7 @@ namespace Catalog.API.Controllers
 {
     [ApiController]
     [Route("api/v1/[Controller]")]
-    [Authorize ("ClientIdPolicy")]
+    
     public class CatalogController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
@@ -95,6 +95,7 @@ namespace Catalog.API.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles ="admin")]
         public async Task<ActionResult<Product>> UpdateProduct([FromBody] Product product)
         {
             var oldproduct = await _productRepository.GetProduct(product.Id);

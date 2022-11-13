@@ -17,14 +17,6 @@ namespace IdentityServerHost.Quickstart.UI
         {
             get
             {
-                var address = new
-                {
-                    street_address = "One Hacker Way",
-                    locality = "Heidelberg",
-                    postal_code = 69118,
-                    country = "Germany"
-                };
-                
                 return new List<TestUser>
                 {
                     new TestUser
@@ -37,10 +29,6 @@ namespace IdentityServerHost.Quickstart.UI
                             new Claim(JwtClaimTypes.Name, "moahamd"),
                             new Claim(JwtClaimTypes.GivenName, "siamak"),
                             new Claim(JwtClaimTypes.FamilyName, "siamak"),
-                            new Claim(JwtClaimTypes.Email, "siamakanzabi@email.com"),
-                            new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                            new Claim(JwtClaimTypes.WebSite, "http://siamak.com"),
-                            new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json),
                             new Claim(JwtClaimTypes.Role, "admin")
                         }
                     },
@@ -54,10 +42,6 @@ namespace IdentityServerHost.Quickstart.UI
                             new Claim(JwtClaimTypes.Name, "Bob Smith"),
                             new Claim(JwtClaimTypes.GivenName, "Bob"),
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.Email, "BobSmith@email.com"),
-                            new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                            new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
-                            new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json),
                             new Claim(JwtClaimTypes.Role, "customer")
                         }
                     }
